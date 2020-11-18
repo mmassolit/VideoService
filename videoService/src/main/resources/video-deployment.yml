@@ -1,0 +1,28 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: video
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: video
+  template:
+    metadata:
+      labels:
+        app: video
+    spec:
+      containers:
+        - image: mmassolit/video
+          name: video
+          ports:
+            - containerPort: 8084
+              name: video
+          env:
+            - name: POSTGRES_ENDPOINT
+              value: "jdbc:postgresql://127.0.0.1:5432/video_service"
+            - name: POSTGRES_PASSWORD
+              value: "123"
+            - name: POSTGRES_USERNAME
+              value: "video_sharing_test"
